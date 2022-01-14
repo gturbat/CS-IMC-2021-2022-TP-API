@@ -28,7 +28,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         graph = Graph(neo4j_server, auth=(neo4j_user, neo4j_password))
         producers = graph.run("MATCH (movie:Title)-[r:IS_OF_GENRE]->(genre_movie:Genre) WITH genre_movie, avg(movie.averageRating) as avg_rating RETURN genre_movie.genre, avg_rating")
         for producer in producers:
-            dataString += f"CYPHER: Genre={producer['genre_movie.genre']}, average_rating ={producer['avg_rating']} \n"
+            dataString += f"CYPHER: Genre={producer['genre_movie.genre']} \n"
     except:
         errorMessage = "Erreur de connexion a la base Neo4j"
 
