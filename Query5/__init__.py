@@ -70,7 +70,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                 cursor.execute("SELECT SUM(tTitles.runtimeMinutes)/COUNT(*) FROM tTitles {} WHERE tTitles.tconst IN ({}) AND {}".format(filter3_1,str(result1).strip('[]'),filter3_2))
                 rows = cursor.fetchall()
                 for row in rows:
-                    dataString += f"CYPHER & SQL: Durée_moyenne des films={row[0]} avec actor={actor}, director={director} \n"
+                    dataString += f"CYPHER & SQL: Durée_moyenne des films={row[0]} avec actor={actor}, director={director} et genre={genre}  \n"
 
         return func.HttpResponse(dataString)
 
