@@ -28,11 +28,11 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         logging.info("Test de connexion avec pyodbc...")
         with pyodbc.connect('DRIVER='+driver+';SERVER=tcp:'+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password) as conn:
             cursor = conn.cursor()
-            cursor.execute("SELECT [dbo].[tGenres].genre, AVG(averageRating) FROM [dbo].[tTitles] JOIN [dbo].[tGenres] ON [dbo].[tTitles].tconst = [dbo].[tGenres].tconst GROUP BY [dbo].[tGenres].genre;")
+            cursor.execute("SELECT  tNames.primaryName, COUNT(tPrincipals.category) AS nbResponsabilites FROM tNames JOIN tPrincipals ON tPrincipals.nconst = tNames.nconst GROUP BY tNames.primaryName, tPrincipals.category HAVING COUNT(tPrincipals.category) > 1;")
 
             rows = cursor.fetchall()
             for row in rows:
-                dataString += f"SQL: Genre={row[0]}, average_rating={row[1]}\n"
+                dataString += f"SQL: primaryName={row[0]}, nbRoles={row[1]}\n"
 
 
     except:
