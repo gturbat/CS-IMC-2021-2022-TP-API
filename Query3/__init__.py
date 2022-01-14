@@ -29,7 +29,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         graph = Graph(neo4j_server, auth=(neo4j_user, neo4j_password))
         producers = graph.run("MATCH (name:Name)-[rel]->(title:Title) WITH DISTINCT name AS distinctNames, title, count(DISTINCT type(rel)) AS rels WHERE rels > 1 RETURN distinctNames.primaryName, title.primaryTitle")
         for producer in producers:
-            dataString += f"CYPHER: primaryName={producer['distinctNames.primaryName']}, primaryTitle={producer["title.primaryTitle"]} \n"
+            dataString += f"CYPHER: primaryName={producer['distinctNames.primaryName']} \n"
     except:
         errorMessage = "Erreur de connexion a la base Neo4j"
 
